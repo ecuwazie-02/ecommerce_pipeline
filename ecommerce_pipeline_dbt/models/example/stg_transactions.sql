@@ -5,4 +5,5 @@ CAST ("Quantity" AS INT) as quantity,
 CAST ("UnitPrice" AS FLOAT) as unit_price,
 ("Quantity" * "UnitPrice") as total_amount
 FROM transactions
+WHERE ("Quantity" > 0 )
 
