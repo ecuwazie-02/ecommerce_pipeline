@@ -6,8 +6,8 @@ WITH max_invoice_date_cte AS (
 
 SELECT 
 t.customer_id,
-EXTRACT(DAY FROM (SELECT snapshot_date FROM max_invoice_date_cte) - t.invoice_date) AS recency,
-COUNT(DISTINCT customer_id) AS frequency,
+EXTRACT(DAY FROM (SELECT snapshot_date FROM max_invoice_date_cte) - MAX(t.invoice_date)) AS recency,
+COUNT(DISTINCT t.invoice_date) AS frequency,
 SUM(t.total_amount) AS monetary
 FROM {{ ref('stg_transactions') }} t
-GROUP BY t.customer_id, recency
+GROUP BY t.customer_id
