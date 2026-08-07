@@ -6,6 +6,7 @@ WITH max_invoice_date_cte AS (
 
 SELECT 
 t.customer_id,
+MAX(t.country) AS country,
 EXTRACT(DAY FROM (SELECT snapshot_date FROM max_invoice_date_cte) - MAX(t.invoice_date)) AS recency,
 COUNT(DISTINCT t.invoice_date) AS frequency,
 SUM(t.total_amount) AS monetary
